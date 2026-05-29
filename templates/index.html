@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Firmware Anti-Forensics Detection Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #ffffff, #f0f9ff);
+      color: #0f172a;
+      overflow-x: hidden;
+    }
+
+    /* TOP NAV */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      display: flex;
+      justify-content: flex-end;
+      gap: 14px;
+      padding: 18px 28px;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #dbeafe;
+    }
+
+    .top-nav a {
+      text-decoration: none;
+      color: #0f172a;
+      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: 12px;
+      transition: all 0.25s ease;
+    }
+
+    .top-nav a:hover {
+      background: #e0f2fe;
+      color: #0284c7;
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      min-height: calc(100vh - 72px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(135deg, #ffffff, #e0f2fe, #f8fafc);
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 1000px;
+      animation: fadeDrop 1.4s ease forwards;
+    }
+
+    h1 {
+      font-size: 56px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      animation: slideFromLeft 1.2s ease forwards;
+    }
+
+    .highlight {
+      color: #0284c7;
+    }
+
+    p {
+      font-size: 18px;
+      color: #334155;
+      max-width: 900px;
+      margin: 0 auto 30px;
+      animation: fadeDrop 1.8s ease forwards;
+    }
+
+    .btns a {
+      display: inline-block;
+      margin: 10px;
+      padding: 14px 28px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btns a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(2,132,199,0.15);
+    }
+
+    .primary {
+      background: #38bdf8;
+      color: #fff;
+    }
+
+    .secondary {
+      border: 1px solid #38bdf8;
+      color: #0284c7;
+      background: white;
+    }
+
+    section {
+      padding: 80px 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #dbeafe;
+      padding: 28px;
+      border-radius: 18px;
+      box-shadow: 0 8px 30px rgba(56,189,248,0.08);
+      animation: fadeDrop 1s ease forwards;
+      transition: .25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .workflow {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .step {
+      flex: 1;
+      min-width: 180px;
+      background: #ffffff;
+      border: 1px solid #dbeafe;
+      padding: 20px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 4px 16px rgba(56,189,248,0.08);
+      animation: slideFromRight 1s ease forwards;
+      transition: .25s ease;
+    }
+
+    .step:hover {
+      transform: translateY(-3px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      border-top: 1px solid #dbeafe;
+      color: #64748b;
+      background: #f8fafc;
+    }
+
+    @keyframes fadeDrop {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideFromLeft {
+      from { opacity: 0; transform: translateX(-80px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideFromRight {
+      from { opacity: 0; transform: translateX(80px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .module-card {
+      opacity: 0;
+      animation: slideFromLeft 0.9s ease forwards;
+    }
+
+    @media (max-width: 900px) {
+      .top-nav {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <a href="/">Home</a>
+    <a href="/upload">Analyze</a>
+    <a href="/report">Report</a>
+    <a href="/copilot">Chatbot</a>
+    <a href="/about">About</a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Firmware <span class="highlight">Anti-Forensics</span><br>Detection Platform</h1>
+      <p>
+        AI-powered firmware security intelligence platform for binary diffing, stealth implants,
+        rollback weakness discovery, rootkit persistence, secure boot bypass detection,
+        and ANTI-BETA Groq copilot reasoning.
+      </p>
+      <div class="btns">
+        <a href="/upload" class="primary">Start Scan</a>
+        <a href="/copilot" class="secondary">ANTI-BETA assistant</a>
+        <a href="/about" class="secondary">About Platform</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Core Detection Modules</h2>
+    <div class="grid">
+      <div class="card module-card"><h3>Binary Diff Engine</h3><p>Byte-level firmware mutation discovery.</p></div>
+      <div class="card module-card"><h3>Heuristic Intelligence</h3><p>Smart mutation clustering and anomaly rules.</p></div>
+      <div class="card module-card"><h3>Rollback Protection</h3><p>Version counter and downgrade weakness analysis.</p></div>
+      <div class="card module-card"><h3>Covert Channel Discovery</h3><p>Hidden signaling and dead-space channel detection.</p></div>
+      <div class="card module-card"><h3>Rootkit Persistence</h3><p>Hook, stealth region, and persistence logic discovery.</p></div>
+      <div class="card module-card"><h3>Secure Boot Validation</h3><p>Trust chain and boot verification checks.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>How It Works</h2>
+    <div class="workflow">
+      <div class="step">1. Upload Firmware</div>
+      <div class="step">2. Run Detectors</div>
+      <div class="step">3. Analyze Threats</div>
+      <div class="step">4. AI Explainability</div>
+      <div class="step">5. Export Report</div>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Firmware Anti-Forensics Research Platform | Cybersecurity + AI
+  </footer>
+</body>
+</html>

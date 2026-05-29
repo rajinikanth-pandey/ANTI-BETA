@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload Firmware | Anti-Forensics Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #ffffff, #eef9ff);
+      color: #0f172a;
+    }
+
+    /* TOP NAV */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      display: flex;
+      justify-content: flex-end;
+      gap: 14px;
+      padding: 18px 28px;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #dbeafe;
+    }
+
+    .top-nav a {
+      text-decoration: none;
+      color: #0f172a;
+      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: 12px;
+      transition: all 0.25s ease;
+    }
+
+    .top-nav a:hover {
+      background: #e0f2fe;
+      color: #0284c7;
+      transform: translateY(-2px);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 60px 24px;
+    }
+
+    .hero {
+      text-align: center;
+      animation: fadeDrop 1s ease forwards;
+    }
+
+    h1 {
+      font-size: 52px;
+      margin-bottom: 16px;
+    }
+
+    .accent {
+      color: #0284c7;
+    }
+
+    .lead {
+      max-width: 1000px;
+      margin: 0 auto;
+      font-size: 18px;
+      line-height: 1.8;
+      color: #334155;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 32px;
+      margin-top: 50px;
+      align-items: start;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #dbeafe;
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: 0 10px 30px rgba(56,189,248,0.08);
+      animation: slideUp 1s ease forwards;
+    }
+
+    .card h2 {
+      margin-top: 0;
+    }
+
+    .upload-box {
+      border: 2px dashed #7dd3fc;
+      border-radius: 24px;
+      padding: 40px 30px;
+      text-align: center;
+      background: linear-gradient(180deg, #ffffff, #f0f9ff);
+      transition: all 0.3s ease;
+      animation: pulseGlow 2.5s infinite;
+      margin-bottom: 24px;
+    }
+
+    .upload-box:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 30px rgba(2,132,199,0.12);
+    }
+
+    .upload-icon {
+      font-size: 54px;
+      margin-bottom: 12px;
+    }
+
+    .upload-box input {
+      display: none;
+    }
+
+    .file-label {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 14px 26px;
+      border-radius: 12px;
+      background: #ffffff;
+      border: 1px solid #7dd3fc;
+      color: #0284c7;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(56,189,248,0.12);
+      transition: all 0.3s ease;
+    }
+
+    .file-label:hover {
+      transform: translateY(-2px);
+      background: #f0f9ff;
+      box-shadow: 0 10px 24px rgba(56,189,248,0.18);
+    }
+
+    .scan-btn {
+      display: inline-block;
+      margin-top: 18px;
+      background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+      color: white;
+      padding: 16px 34px;
+      border-radius: 14px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(14,165,233,0.25);
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .scan-btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 14px 28px rgba(14,165,233,0.32);
+    }
+
+    ul {
+      line-height: 1.9;
+      color: #334155;
+    }
+
+    @keyframes fadeDrop {
+      from { opacity: 0; transform: translateY(-40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulseGlow {
+      0%,100% { box-shadow: 0 0 0 rgba(56,189,248,0.0); }
+      50% { box-shadow: 0 0 30px rgba(56,189,248,0.12); }
+    }
+
+    @media (max-width: 900px) {
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+
+      .top-nav {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <a href="/">Home</a>
+    <a href="/upload">Analyze</a>
+    <a href="/report">Report</a>
+    <a href="/copilot">Chatbot</a>
+    <a href="/about">About</a>
+  </nav>
+
+  <div class="container">
+
+    <div class="hero">
+      <h1>Upload <span class="accent">Betaflight Drone Firmware</span></h1>
+      <p class="lead">
+        This anti-forensics workflow is designed specifically for
+        <b>Betaflight-based STM32 drone firmware</b>. Upload both the trusted
+        baseline firmware and the suspicious modified image for deep byte-level
+        comparison, stealth persistence detection, rollback validation,
+        secure boot trust analysis, covert telemetry inspection, and rootkit
+        persistence discovery.
+      </p>
+    </div>
+
+    <div class="info-grid">
+
+      <div class="card">
+        <h2>About Anti-Forensics in Drone Firmware</h2>
+        <p>
+          Hidden firmware tampering in Betaflight can manipulate motor behavior,
+          telemetry exfiltration, failsafe logic, MSP control channels,
+          geofencing, and crash evidence wiping.
+        </p>
+        <ul>
+          <li>Binary diff and erase pattern detection</li>
+          <li>Rollback protection analysis</li>
+          <li>Stealth baseline drift detection</li>
+          <li>Rootkit persistence & syscall hooks</li>
+          <li>Secure boot and integrity bypass detection</li>
+        </ul>
+      </div>
+
+      <form class="card" action="/analyze" method="POST" enctype="multipart/form-data">
+        <h2>Firmware Upload</h2>
+
+        <div class="upload-box">
+          <div class="upload-icon">📁</div>
+          <h3>Trusted Original Firmware</h3>
+          <label for="originalUpload" class="file-label">📂 Choose Original Firmware</label>
+          <input id="originalUpload" type="file" name="original_file" accept=".bin" required>
+        </div>
+
+        <div class="upload-box">
+          <div class="upload-icon">🧪</div>
+          <h3>Suspect Modified Firmware</h3>
+          <label for="modifiedUpload" class="file-label">📂 Choose Modified Firmware</label>
+          <input id="modifiedUpload" type="file" name="modified_file" accept=".bin" required>
+        </div>
+
+        <button type="submit" class="scan-btn">
+          🚀 Run Anti-Forensics Scan
+        </button>
+      </form>
+
+    </div>
+  </div>
+</body>
+</html>

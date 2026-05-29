@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | Anti-Forensics Research Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #ffffff, #eef9ff);
+      color: #0f172a;
+    }
+
+    /* TOP NAV */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      display: flex;
+      justify-content: flex-end;
+      gap: 14px;
+      padding: 18px 28px;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #dbeafe;
+    }
+
+    .top-nav a {
+      text-decoration: none;
+      color: #0f172a;
+      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: 12px;
+      transition: all 0.25s ease;
+    }
+
+    .top-nav a:hover {
+      background: #e0f2fe;
+      color: #0284c7;
+      transform: translateY(-2px);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 56px 24px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 42px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      max-width: 900px;
+      margin: auto;
+      line-height: 1.9;
+      color: #475569;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #dbeafe;
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 10px 24px rgba(56,189,248,.08);
+      transition: .25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 30px rgba(56,189,248,.12);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 24px;
+    }
+
+    .card p,
+    .card li {
+      line-height: 1.85;
+      color: #334155;
+    }
+
+    .timeline {
+      margin-top: 38px;
+      background: white;
+      border: 1px solid #dbeafe;
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 10px 24px rgba(56,189,248,.08);
+    }
+
+    .step {
+      padding: 16px 0;
+      border-bottom: 1px solid #e2e8f0;
+      line-height: 1.8;
+    }
+
+    .step:last-child {
+      border-bottom: none;
+    }
+
+    @media (max-width: 900px) {
+      .top-nav {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <a href="/">Home</a>
+    <a href="/upload">Analyze</a>
+    <a href="/report">Report</a>
+    <a href="/copilot">Chatbot</a>
+    <a href="/about">About</a>
+  </nav>
+
+  <div class="container">
+    <div class="hero">
+      <h1>About the Research Platform</h1>
+      <p>
+        This platform is a specialized firmware anti-forensics research and detection environment built for
+        <b>Betaflight-based drone flight controller firmware</b>. It combines byte-level diffing, heuristic reasoning,
+        stealth persistence discovery, rollback validation, secure boot trust analysis, fragmentation intelligence,
+        and AI copilot explainability into a single workflow for forensic triage and academic demonstration.
+      </p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Research Objective</h2>
+        <p>
+          The primary objective is to detect stealthy anti-forensic techniques hidden inside drone firmware images.
+          These include covert implants, hidden telemetry channels, boot-stage persistence, rollback abuse,
+          fragmented payload scattering, and disguised malicious metadata that may survive standard reflashing.
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>Detection Methodology</h2>
+        <ul>
+          <li>Binary diffing against trusted golden firmware</li>
+          <li>Heuristic mutation clustering and FF-fill analysis</li>
+          <li>Baseline profile deviation and stealth region checks</li>
+          <li>Rootkit persistence + syscall hook tracing</li>
+          <li>Secure boot, vector table, and reset integrity validation</li>
+          <li>AI copilot correlation for analyst explainability</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Why Betaflight</h2>
+        <p>
+          Betaflight is widely used across FPV drones, autonomous UAV research, and embedded flight-controller
+          ecosystems. This makes it an excellent case study for anti-forensic firmware tampering, where hidden
+          modifications may alter PID loops, failsafe behavior, telemetry outputs, motor control, and mission logic.
+        </p>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <h2>Platform Workflow</h2>
+      <div class="step"><b>1. Firmware Ingestion:</b> Upload trusted and suspect Betaflight images.</div>
+      <div class="step"><b>2. Detector Correlation:</b> Run all anti-forensics modules and entropy checks.</div>
+      <div class="step"><b>3. Threat Dashboard:</b> Visualize severity, risk score, and module findings.</div>
+      <div class="step"><b>4. AI Copilot:</b> Explain alerts, suggest validation steps, and remediation.</div>
+      <div class="step"><b>5. Forensic Reporting:</b> Export analyst-grade PDF and JSON deliverables.</div>
+    </div>
+  </div>
+</body>
+</html>

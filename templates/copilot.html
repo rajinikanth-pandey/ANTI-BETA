@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ANTI-BETA Chat Copilot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #ffffff, #eef9ff);
+      color: #0f172a;
+    }
+
+    /* TOP NAV */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      display: flex;
+      justify-content: flex-end;
+      gap: 14px;
+      padding: 18px 28px;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #dbeafe;
+    }
+
+    .top-nav a {
+      text-decoration: none;
+      color: #0f172a;
+      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: 12px;
+      transition: all 0.25s ease;
+    }
+
+    .top-nav a:hover {
+      background: #e0f2fe;
+      color: #0284c7;
+      transform: translateY(-2px);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      min-height: calc(100vh - 72px);
+    }
+
+    .sidebar {
+      background: #f8fdff;
+      border-right: 1px solid #dbeafe;
+      padding: 28px;
+    }
+
+    .sidebar h2 {
+      margin-top: 0;
+      font-size: 30px;
+    }
+
+    .chip {
+      display: block;
+      padding: 14px 16px;
+      border: 1px solid #dbeafe;
+      border-radius: 14px;
+      background: white;
+      margin: 12px 0;
+      cursor: pointer;
+      transition: .25s ease;
+    }
+
+    .chip:hover {
+      background: #f0f9ff;
+      transform: translateX(3px);
+    }
+
+    .main {
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 72px);
+    }
+
+    .topbar {
+      padding: 22px 28px;
+      border-bottom: 1px solid #dbeafe;
+      background: white;
+    }
+
+    .topbar h1 {
+      margin: 0;
+      font-size: 34px;
+    }
+
+    .chat-box {
+      flex: 1;
+      overflow-y: auto;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .msg {
+      max-width: 75%;
+      padding: 18px 20px;
+      border-radius: 18px;
+      line-height: 1.8;
+      box-shadow: 0 8px 22px rgba(56,189,248,.08);
+      white-space: pre-wrap;
+      animation: fadeUp .25s ease;
+    }
+
+    .user {
+      align-self: flex-end;
+      background: #38bdf8;
+      color: white;
+    }
+
+    .bot {
+      align-self: flex-start;
+      background: white;
+      border: 1px solid #dbeafe;
+    }
+
+    .composer {
+      display: flex;
+      gap: 14px;
+      padding: 20px 28px;
+      border-top: 1px solid #dbeafe;
+      background: white;
+    }
+
+    .composer input {
+      flex: 1;
+      padding: 16px 18px;
+      border: 1px solid #cbd5e1;
+      border-radius: 14px;
+      font-size: 15px;
+    }
+
+    .composer button {
+      padding: 16px 22px;
+      border: none;
+      border-radius: 14px;
+      background: #0ea5e9;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .25s ease;
+    }
+
+    .composer button:hover {
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media(max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        display: none;
+      }
+
+      .top-nav {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <a href="/">Home</a>
+    <a href="/upload">Analyze</a>
+    <a href="/report">Report</a>
+    <a href="/copilot">Chatbot</a>
+    <a href="/about">About</a>
+  </nav>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <h2>ANTI-BETA</h2>
+      <div class="chip" onclick="askPreset('Why is rollback weak?')">Rollback Weakness</div>
+      <div class="chip" onclick="askPreset('Explain rootkit persistence')">Rootkit Persistence</div>
+      <div class="chip" onclick="askPreset('What should I reverse engineer first?')">RE Priority</div>
+      <div class="chip" onclick="askPreset('Could this survive OTA updates?')">OTA Survival</div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <h1>ANTI-BETA Chat Copilot</h1>
+        <p>Talk naturally with Groq-powered firmware DFIR assistant.</p>
+      </div>
+
+      <div id="chatBox" class="chat-box">
+        <div class="msg bot">
+Hello 👋 I’m ANTI-BETA.
+Ask me anything about rollback bypass, stealth persistence, Betaflight risks, covert signaling, or reverse engineering priorities.
+        </div>
+      </div>
+
+      <div class="composer">
+        <input id="userInput" type="text" placeholder="Ask about the firmware sample..."/>
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    async function sendMessage(customText = null) {
+      const input = document.getElementById("userInput");
+      const chat = document.getElementById("chatBox");
+      const text = customText || input.value.trim();
+
+      if (!text) return;
+
+      chat.innerHTML += `<div class="msg user">${text}</div>`;
+      input.value = "";
+      chat.scrollTop = chat.scrollHeight;
+
+      const res = await fetch("/copilot/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text })
+      });
+
+      const data = await res.json();
+
+      chat.innerHTML += `<div class="msg bot">${data.reply}</div>`;
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function askPreset(text) {
+      sendMessage(text);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forensic Report | Anti-Forensics Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #ffffff, #eef9ff);
+      color: #0f172a;
+    }
+
+    /* TOP NAV */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      display: flex;
+      justify-content: flex-end;
+      gap: 14px;
+      padding: 18px 28px;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #dbeafe;
+    }
+
+    .top-nav a {
+      text-decoration: none;
+      color: #0f172a;
+      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: 12px;
+      transition: all 0.25s ease;
+    }
+
+    .top-nav a:hover {
+      background: #e0f2fe;
+      color: #0284c7;
+      transform: translateY(-2px);
+    }
+
+    .container {
+      max-width: 1450px;
+      margin: auto;
+      padding: 48px 24px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    h1 {
+      font-size: 46px;
+      margin: 0 0 10px;
+    }
+
+    .meta {
+      color: #475569;
+      line-height: 1.8;
+    }
+
+    .actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 22px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: .25s ease;
+    }
+
+    .primary {
+      background: #38bdf8;
+      color: white;
+      box-shadow: 0 10px 24px rgba(56,189,248,.25);
+    }
+
+    .secondary {
+      border: 1px solid #7dd3fc;
+      color: #0284c7;
+      background: white;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .section {
+      margin-top: 34px;
+      background: white;
+      border: 1px solid #dbeafe;
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 8px 24px rgba(56,189,248,.08);
+    }
+
+    .summary-grid,
+    .charts,
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .metric,
+    .module-card {
+      background: #f8fdff;
+      border: 1px solid #dbeafe;
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    .metric .num {
+      font-size: 34px;
+      font-weight: 800;
+      color: #0284c7;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-weight: 700;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .narrative {
+      line-height: 1.9;
+      color: #334155;
+    }
+
+    canvas {
+      width: 100% !important;
+      max-height: 260px;
+      margin-top: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+    }
+
+    th, td {
+      padding: 14px;
+      border-bottom: 1px solid #e2e8f0;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f8fdff;
+    }
+
+    @media (max-width: 900px) {
+      .top-nav {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <a href="/">Home</a>
+    <a href="/upload">Analyze</a>
+    <a href="/report">Report</a>
+    <a href="/copilot">Chatbot</a>
+    <a href="/about">About</a>
+  </nav>
+
+  <div class="container">
+    <div class="header">
+      <div>
+        <h1>Firmware Forensic Report</h1>
+        <div class="meta">
+          <div><b>Target:</b> Betaflight Flight Controller Firmware</div>
+          <div><b>Generated:</b> AI + Detector Correlation</div>
+          <div><b>Mode:</b> Dynamic Threat Intelligence Report</div>
+        </div>
+      </div>
+      <div class="actions">
+        <a href="/download-report" class="btn primary">⬇ Export PDF</a>
+        <a href="/copilot" class="btn secondary">🤖 Open AI Copilot</a>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Executive Summary</h2>
+      <div class="summary-grid">
+        <div class="metric"><div>Total Risk</div><div class="num">{{ results.visuals.overall_score | default(0) }}</div><div>/ 100 Threat Score</div></div>
+        <div class="metric"><div>Changed Offsets</div><div class="num">{{ results.total_changes | default(0) }}</div><div>Firmware mutation spread</div></div>
+        <div class="metric"><div>Mass Erase Regions</div><div class="num">{{ results.mass_erase_regions | default(0) }}</div><div>Potential erase activity</div></div>
+        <div class="metric"><div>Persistence Risk</div><div class="num">{{ 'YES' if results.rootkit.rootkit_persistence_possible else 'NO' }}</div><div>Rootkit + hook indicators</div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Threat Analytics</h2>
+      <div class="charts">
+        <div><canvas id="scoreChart"></canvas></div>
+        <div><canvas id="moduleChart"></canvas></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>All Detector Modules</h2>
+      <div class="module-grid">
+        {% for module, score in results.visuals.module_confidence.items() %}
+        <div class="module-card">
+          <h3>{{ module.replace('_', ' ')|title }}</h3>
+          <div class="tag">{{ results[module].confidence }}</div>
+          <div>{{ results[module].reason }}</div>
+          <canvas id="{{ module }}Chart"></canvas>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Detector Findings Matrix</h2>
+      <table>
+        <tr><th>Module</th><th>Confidence</th><th>Finding</th></tr>
+        {% for module, score in results.visuals.module_confidence.items() %}
+        <tr>
+          <td>{{ module.replace('_', ' ')|title }}</td>
+          <td><span class="tag">{{ results[module].confidence }}</span></td>
+          <td>{{ results[module].reason }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>Analyst Narrative</h2>
+      <div class="narrative">
+        The analyzed firmware demonstrates multiple anti-forensic indicators including mutation drift,
+        stealth persistence anomalies, rollback weaknesses, hidden control surfaces, fragmentation spread,
+        and secure boot validation weaknesses.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const overallScore = {{ results.visuals.overall_score | default(0) }};
+    const moduleData = {{ results.visuals.module_confidence | default({}) | tojson | safe }};
+
+    new Chart(document.getElementById('scoreChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Threat', 'Remaining'],
+        datasets: [{ data: [overallScore, 100 - overallScore], borderWidth: 0, cutout: '70%' }]
+      },
+      options: { plugins: { legend: { display: false } } }
+    });
+
+    new Chart(document.getElementById('moduleChart'), {
+      type: 'bar',
+      data: {
+        labels: Object.keys(moduleData),
+        datasets: [{ label: 'Confidence', data: Object.values(moduleData), borderRadius: 10 }]
+      },
+      options: { scales: { y: { min: 0, max: 100 } } }
+    });
+
+    Object.entries(moduleData).forEach(([module, score]) => {
+      const canvas = document.getElementById(module + 'Chart');
+      if (!canvas) return;
+      new Chart(canvas, {
+        type: 'doughnut',
+        data: {
+          labels: ['Confidence', 'Remaining'],
+          datasets: [{ data: [score, 100 - score], borderWidth: 0 }]
+        },
+        options: { plugins: { legend: { display: false } } }
+      });
+    });
+  </script>
+</body>
+</html>
